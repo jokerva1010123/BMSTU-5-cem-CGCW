@@ -1,0 +1,11 @@
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\bin\Debug\cu.exe.config
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\bin\Debug\cu.exe
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\bin\Debug\cu.pdb
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.csproj.AssemblyReference.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.csproj.SuggestedBindingRedirects.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.Properties.Resources.resources
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.csproj.GenerateResource.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.csproj.CoreCompileInputs.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.exe
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.pdb
+D:\BMSTU\BMSTU-5-cem-CGCW\cu\obj\Debug\cu.Form1.resources

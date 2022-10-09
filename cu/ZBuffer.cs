@@ -40,7 +40,7 @@ namespace cu
             foreach (Model m in s.GetModel())
             {
                 ProcessModel(zbuf, img, m);
-                ProcessModelFromSun(zbufFromSun, imgFromSun, m);
+                ProcessModelFromSun(zbufFromSun, imgFromSun, m.GetTurnedModel(tettax, tettay, tettaz));
             }
         }
 
@@ -99,7 +99,7 @@ namespace cu
                 if (polygon.sun_ignore)
                     continue;
                 polygon.FindPointsInside(image.Width, image.Height);
-                draw = polygon.color;
+                draw = polygon.GetColor(sun);
                 foreach(Point3D point in polygon.pointsInside)
                 {
                     ProcessPoint(buffer, image, point, draw);
@@ -123,7 +123,8 @@ namespace cu
                     int z = GetZ(i, j);
                     if (z != -10000)
                     {
-                        Point3D newCoord = Transformation.Transform(i, j, z, tettax, tettay, tettaz);
+                        //Point3D newCoord = Transformation.Transform(i, j, z, tettax, tettay, tettaz);
+                        Point3D newCoord = new Point3D(i, j, z);
                         Color curPixColor = img.GetPixel(j, i);
                         if (newCoord.x < 0 || newCoord.y < 0 || newCoord.x >= size.Width || newCoord.y >= size.Height)
                         {
@@ -133,13 +134,14 @@ namespace cu
 
                         if (zbufFromSun[newCoord.y][newCoord.x] > newCoord.z + 5) // текущая точка невидима из источника света
                         {
-                            hm.SetPixel(j, i, Color.Black);
+                            hm.SetPixel(j, i, Colors.Mix(Color.Black, curPixColor, 0.4f));
                         }
                         else
                         {
                             hm.SetPixel(j, i, curPixColor);
                         }
                     }
+                    
                 }
             }
 

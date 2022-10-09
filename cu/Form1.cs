@@ -16,7 +16,7 @@ namespace cu
     {
         Bitmap img;
         Graphics g;
-        screen scene;
+        Screen scene;
         ZBuffer zbuf;
         LightSource currentSun;
         int tettax = 0, tettay = 0, tettaz = 0;
@@ -39,14 +39,32 @@ namespace cu
 
         private void HandleSceneChange()
         {
-            zbuf = new ZBuffer(scene.GetTurned(tettax, tettay, tettaz), canvas.Size, currentSun);
-            canvas.Image = zbuf.AddShadow();
-            
+            screen newsence = scene.GetTurned(tettax, tettay, tettaz);
+            zbuf = new ZBuffer(newsence, canvas.Size, currentSun);
+            canvas.Image = zbuf.AddShadow();   
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonRight_Click(object sender, EventArgs e)
+        {
+            tettay += 10;
+            HandleSceneChange();
+        }
+
+        private void buttonLeft_Click(object sender, EventArgs e)
+        {
+            tettay -= 10;
+            HandleSceneChange();
+        }
+
+        private void buttonDown_Click(object sender, EventArgs e)
         {
             tettax -= 10;
+            HandleSceneChange();
+        }
+
+        private void buttonUp_Click(object sender, EventArgs e)
+        {
+            tettax += 10;
             HandleSceneChange();
         }
     }

@@ -23,7 +23,7 @@ namespace cu
         double tettax, tettay, tettaz;
         LightSource sun;
         
-        public ZBuffer(screen s, Size size, LightSource sun)
+        public ZBuffer(Scene s, Size size, LightSource sun)
         {
             img = new Bitmap(size.Width, size.Height);
             imgFromSun = new Bitmap(size.Width, size.Height);
@@ -37,7 +37,7 @@ namespace cu
             {
                 imgColor[i] = new Color[size.Height];
             }
-            foreach (Model m in s.GetModel())
+            foreach (Model m in s.GetModels())
             {
                 ProcessModel(zbuf, img, m);
                 ProcessModelFromSun(zbufFromSun, imgFromSun, m.GetTurnedModel(tettax, tettay, tettaz));
@@ -67,13 +67,13 @@ namespace cu
         private void ProcessModel(int[][] zbuf, Bitmap img, Model m)
         {
             Color draw;
-            foreach(Polygon polygon in m.polygon)
+            foreach(Polygon polygon in m.polygons)
             {
-                polygon.FindPointsInside(img.Width, img.Height);
-                draw = polygon.color;
+                polygon.CalculatePointsInside(img.Width, img.Height);
+                draw = polygon.GetColor(sun);
                 foreach (Point3D point in polygon.pointsInside)
                 {
-                    ProcessPoint(zbuf, img, point, polygon.color);
+                    ProcessPoint(zbuf, img, point, draw);
                 }
             }
         }
@@ -94,17 +94,16 @@ namespace cu
         private void ProcessModelFromSun(int[][] buffer, Bitmap image, Model m)
         {
             Color draw;
-            foreach(Polygon polygon in m.polygon)
+            foreach(Polygon polygon in m.polygons)
             {
-                if (polygon.sun_ignore)
+                if (polygon.ignore)
                     continue;
-                polygon.FindPointsInside(image.Width, image.Height);
+                polygon.CalculatePointsInside(image.Width, image.Height);
                 draw = polygon.GetColor(sun);
                 foreach(Point3D point in polygon.pointsInside)
                 {
                     ProcessPoint(buffer, image, point, draw);
-                }
-                
+                }   
             }
         }
 

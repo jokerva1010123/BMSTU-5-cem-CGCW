@@ -16,7 +16,7 @@ namespace cu
     {
         Bitmap img;
         Graphics g;
-        Screen scene;
+        Scene scene;
         ZBuffer zbuf;
         LightSource currentSun;
         int tettax = 0, tettay = 0, tettaz = 0;
@@ -26,8 +26,8 @@ namespace cu
             Transformation.SetSize(canvas.Width, canvas.Height);
             img = new Bitmap(canvas.Width, canvas.Height);
             g = canvas.CreateGraphics();
-            scene = new screen(canvas.Size);
-            scene.createScreen();
+            scene = new Scene(canvas.Size);
+            scene.CreateScene();
             SetSun();
             HandleSceneChange();
         }
@@ -39,7 +39,7 @@ namespace cu
 
         private void HandleSceneChange()
         {
-            screen newsence = scene.GetTurned(tettax, tettay, tettaz);
+            Scene newsence = scene.GetTurnedScene(tettax, tettay, tettaz);
             zbuf = new ZBuffer(newsence, canvas.Size, currentSun);
             canvas.Image = zbuf.AddShadow();   
         }

@@ -1,0 +1,11 @@
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.csproj.AssemblyReference.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.csproj.SuggestedBindingRedirects.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.Form1.resources
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.Properties.Resources.resources
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.csproj.GenerateResource.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.csproj.CoreCompileInputs.cache
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\bin\Debug\Graphic.exe.config
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\bin\Debug\Graphic.exe
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\bin\Debug\Graphic.pdb
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.exe
+D:\BMSTU\BMSTU-5-cem-CGCW\Graphic\obj\Debug\Graphic.pdb

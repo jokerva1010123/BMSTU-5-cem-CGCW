@@ -17,7 +17,7 @@ namespace Graphic
         private int zBackground = -100 * 100 * 100;
         int[][] zbuf;
         Sun sun;
-        Bitmap img, imgFromSun;
+        public Bitmap img, imgFromSun;
         double tettax, tettay, tettaz;
         int[][] zbufFromSun;
 
@@ -36,7 +36,6 @@ namespace Graphic
                 {
                     zbuff[p.y][p.x] = p.z;
                     image.SetPixel(p.x, p.y, color);
-                   // imgPar[p.x][p.y] = color;
                 }
             }
         }
@@ -98,7 +97,11 @@ namespace Graphic
             }
         }
 
-        int GetZ(int x, int y)
+        public Bitmap GetImg()
+        {
+            return img;
+        }
+        public int GetZ(int x, int y)
         {
             return zbuf[y][x];
         }

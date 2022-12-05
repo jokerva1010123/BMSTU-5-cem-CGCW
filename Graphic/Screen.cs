@@ -45,7 +45,7 @@ namespace Graphic
             model.Add(m);
         }
 
-        private void CreateHouse(Color color, int xCenter, int dx, int zCenter, int dz, int height, Boolean roof = false)
+        public void CreateHouse(Color color, int xCenter, int dx, int zCenter, int dz, int height, Boolean roof = false)
         {
             Model m = new Model(color);
 
@@ -69,7 +69,7 @@ namespace Graphic
 
             if (roof)
             {
-                m.AddPointOfModel(new Point3D(xCenter, ground - height - 40, zCenter));
+                m.AddPointOfModel(new Point3D(xCenter, ground - height - 50, zCenter));
                 m.CreateSide(false, 3, 2, 8);
                 m.CreateSide(false, 7, 3, 8);
                 m.CreateSide(false, 6, 7, 8);

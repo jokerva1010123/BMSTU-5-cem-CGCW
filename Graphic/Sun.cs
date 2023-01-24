@@ -11,12 +11,13 @@ namespace Graphic
     {
         public Color color = Color.White;
         public Vector direction;
-        public double tettax = 90, tettay, tettaz = 0;
+        public double tettax, tettay, tettaz = 0;
 
-        public Sun(double tettay, Vector direction)
+        public Sun(double tettay, double tettax, Vector direction)
         {
             this.direction = direction;
             this.tettay = tettay;
+            this.tettax = tettax;
         }   
     }
 }

@@ -12,7 +12,6 @@ namespace Graphic
     class Point3D
     {
         public int x, y, z;
-
         public Point3D(int x, int y, int z)
         {
             this.x = x;
@@ -20,7 +19,6 @@ namespace Graphic
             this.z = z;
         }
     }
-
     class Side
     {
         List<Point3D> pointOfSide;
@@ -49,7 +47,6 @@ namespace Graphic
             pointOfSide = new List<Point3D>();
             pointInSide = new List<Point3D>();
         }
-
         public Side(List<Point3D> pointOfSide, Color color, Boolean ignoreFromSun)
         {
             this.colorofSide = color;
@@ -57,16 +54,15 @@ namespace Graphic
             this.ignoreFromSun = ignoreFromSun;
             normal = GetNormal();
         }
-
         static void Swap<T>(ref T a, ref T b)
         {
             T temp = a;
             a = b;
             b = temp;
         }
-
-        void FindPointsInsideTriangle(List<Point3D> p, int lastXPossible, int lastYPossible, int firstXPossible = 0, int firstYPossible = 0)
+        void FindPointsInsideTriangle(List<Point3D> p, int xEnd, int yEnd)
         {
+            int xStart = 0, yStart = 0;
             int yMax, yMin;
             int[] x = new int[3], y = new int[3];
 
@@ -79,8 +75,8 @@ namespace Graphic
             yMax = y.Max();
             yMin = y.Min();
 
-            yMin = (yMin < firstYPossible) ? firstYPossible : yMin;
-            yMax = (yMax < lastYPossible) ? yMax : lastYPossible;
+            yMin = (yMin < yStart) ? yStart : yMin;
+            yMax = (yMax < yEnd) ? yMax : yEnd;
 
             int x1 = 0, x2 = 0;
             double z1 = 0, z2 = 0;
@@ -92,7 +88,7 @@ namespace Graphic
                 {
                     int n1 = (n == 2) ? 0 : n + 1;
 
-                    if (yDot >= Math.Max(y[n], y[n1]) || yDot < Math.Min(y[n], y[n1])) // || y[n] == y[n1]  
+                    if (yDot >= Math.Max(y[n], y[n1]) || yDot < Math.Min(y[n], y[n1]))
                         continue; // точка вне
 
                     double m = (double)(y[n] - yDot) / (y[n] - y[n1]);
@@ -115,9 +111,9 @@ namespace Graphic
                     Swap(ref z1, ref z2);
                 }
 
-                int xStart = (x1 < firstXPossible) ? firstXPossible : x1;
-                int xEnd = (x2 < lastXPossible) ? x2 : lastXPossible;
-                for (int xDot = xStart; xDot < xEnd; xDot++)
+                int xMin = (x1 < xStart) ? xStart : x1;
+                int xMax = (x2 < xEnd) ? x2 : xEnd;
+                for (int xDot = xMin; xDot < xMax; xDot++)
                 {
                     double m = (double)(x1 - xDot) / (x1 - x2);
                     double zDot = z1 + m * (z2 - z1);
@@ -126,7 +122,6 @@ namespace Graphic
                 }
             }
         }
-
         public void FindPointInSide(int maxX, int maxY)
         {
             pointInSide = new List<Point3D>();
@@ -149,12 +144,10 @@ namespace Graphic
                 FindPointsInsideTriangle(pointOfSide, maxX, maxY);
             }
         }
-
         public Color GetColorFromSun(Sun sun)
         {
-            double cos = Vector.ScalarMultiplication(sun.direction, normal) /
-                (sun.direction.length * normal.length);
-
+            double cos = Math.Min(Vector.ScalarMultiplication(sun.direction, normal) /
+                (sun.direction.length * normal.length), 1.0);
             if (cos <= 0)
             {
                 float bPers = 1 - (float)0.2f;
@@ -173,14 +166,12 @@ namespace Graphic
             }
         }
     }
-
     class Model
     {
         public Color colorOfModel = Color.Black;
         List<Point3D> pointOfModel;
         public List<Side> sides;
         List<int[]> indexOfPoints;
-
         public Model(Color color)
         {
             this.colorOfModel = color;
@@ -188,17 +179,14 @@ namespace Graphic
             sides = new List<Side>();
             indexOfPoints = new List<int[]>();
         }
-
         public void AddPointOfModel(Point3D point)
         {
             pointOfModel.Add(point);
         }
-
         public void AddPointOfModel(int x, int y, int z)
         {
             pointOfModel.Add(new Point3D(x, y, z));
         }
-
         public void CreateSide(bool ignoreFromSun, params int[] indexOfPoints)
         {
 
@@ -210,7 +198,19 @@ namespace Graphic
             }
             sides.Add(new Side(side, colorOfModel, ignoreFromSun));
         }
-
+        public void ChangePoint(double anglex, double angley, double anglez, int dz)
+        {
+            double tetax = anglex * Math.PI / 180;
+            double tetay = angley * Math.PI / 180;
+            double tetaz = anglez * Math.PI / 180;
+            double cosTetX = Math.Cos(tetax), sinTetX = Math.Sin(tetax);
+            double cosTetY = Math.Cos(tetay), sinTetY = Math.Sin(tetay);
+            double cosTetZ = Math.Cos(tetaz), sinTetZ = Math.Sin(tetaz);
+            foreach (Point3D v in this.pointOfModel)
+            {
+                Transformation.Transform(ref v.x, ref v.y, ref v.z, cosTetX, sinTetX, cosTetY, sinTetY, cosTetZ, sinTetZ);
+            }
+        }
         public void ChangePoint(double anglex, double angley, double anglez)
         {
             double tetax = anglex * Math.PI / 180;
@@ -224,11 +224,9 @@ namespace Graphic
                 Transformation.Transform(ref v.x, ref v.y, ref v.z, cosTetX, sinTetX, cosTetY, sinTetY, cosTetZ, sinTetZ);
             }
         }
-
         public Model GetChangeModel(double anglex, double angley, double anglez)
         {
             Model newModel = new Model(this.colorOfModel);
-
             foreach(Point3D p in pointOfModel)
             {
                 newModel.AddPointOfModel(p.x, p.y, p.z);

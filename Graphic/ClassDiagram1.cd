@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Graphic.Fog">
+    <Position X="8.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Fog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Form1" Collapsed="true">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAQAAQIWDEYexARDQO0AA4CgUUwBQAAwCAAAkBBSAc=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Model" Collapsed="true">
+    <Position X="1.75" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAJAAAAAAAIEAAAAgAAACAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Point3D" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAQAAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Program" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Screen">
+    <Position X="11.5" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAQAAAAAAAIAAAAAAgABABAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Screen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Side" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEiIAAAAAAAAAAAAAAAAgAAAIBAAAAQAAAABCAAAA=</HashCode>
+      <FileName>Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Sun">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAACAAAAAAAAAQAA=</HashCode>
+      <FileName>Sun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Transformation" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAWAAAAAAAAAAAAAAIABwAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Transformation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.Vector" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAEAAAAAAAAAAAAAAAABgAQAAgAA=</HashCode>
+      <FileName>Vector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Graphic.ZBuffer">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAEAAQCKAAIAAAAgAAEAAAAAkAAQEEQCA=</HashCode>
+      <FileName>ZBuffer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

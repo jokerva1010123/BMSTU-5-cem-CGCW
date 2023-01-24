@@ -61,6 +61,7 @@ namespace Graphic
             x = centerX + cosTetZ * (x - centerX) - sinTetZ * (y - centerY);
             y = centerY + cosTetZ * (y - centerY) + sinTetZ * (buf - centerX);
         }
+
         public static void Transform(ref int x, ref int y, ref int z, double cosTetX, double sinTetX, double cosTetY, double sinTetY, double cosTetZ, double sinTetZ)
         {
             double x_tmp = x;

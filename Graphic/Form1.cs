@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -20,6 +21,8 @@ namespace Graphic
         ZBuffer zbuf;
         bool addedFog = false;
         int zfar;
+        Vector dir = new Vector(0, -1, 0);
+        int anphasuny = 180, anphasunx = 90;
 
         public Form1()
         {
@@ -33,31 +36,46 @@ namespace Graphic
 
         private void sun_1_Click(object sender, EventArgs e)
         {
-            currentSun = sun1;
+            dir = new Vector(1, 0, 0);
+            anphasunx = 90;
+            anphasuny = 270;
+            SetSun();
             Action();
         }
 
         private void sun_2_Click(object sender, EventArgs e)
         {
-            currentSun = sun2;
+            dir = new Vector(0.5, -0.5, 0);
+            anphasunx = 90;
+            anphasuny = 225;
+            SetSun();
             Action();
         }
 
         private void sun_3_Click(object sender, EventArgs e)
         {
-            currentSun = sun3;
+            dir = new Vector(0, -1, 0); 
+            anphasunx = 90;
+            anphasuny = 180;
+            SetSun();
             Action();
         }
 
         private void sun_4_Click(object sender, EventArgs e)
         {
-            currentSun = sun4;
+            dir = new Vector(-0.5, -0.5, 0);
+            anphasunx = 90;
+            anphasuny = 145;
+            SetSun();
             Action();
         }
 
         private void sun_5_Click(object sender, EventArgs e)
         {
-            currentSun = sun5;
+            dir = new Vector(-1, 0, 0);
+            anphasunx = 90;
+            anphasuny = 90;
+            SetSun();
             Action();
         }
 
@@ -70,6 +88,50 @@ namespace Graphic
         private void chearFog_Click(object sender, EventArgs e)
         {
             addedFog = false;
+            Action();
+        }
+
+        private void sunleft_Click(object sender, EventArgs e)
+        {
+            if(anphasuny + 10 > 270)
+            {
+                MessageBox.Show("Максимальный сдвиг солнца влево", "Error");
+                return;
+            }
+            anphasuny += 10;
+            dir.x += 1.0/9;
+            dir.y = -1.0 + 1.0 * Math.Abs(anphasuny - 180) / 90;
+            currentSun = new Sun(anphasuny, anphasunx, dir);
+            Action();
+        }
+
+        private void rightsun_Click(object sender, EventArgs e)
+        {
+            if(anphasuny -10 <   90)
+            {
+                MessageBox.Show("Максимальный сдвиг солнца вправо", "Error");
+                return;
+            }
+            anphasuny -= 10;
+            dir.x -= 1.0/ 9;
+            dir.y = -1.0 + 1.0 * Math.Abs(anphasuny - 180) / 90;
+            currentSun = new Sun(anphasuny, anphasunx, dir);
+            Action();
+        }
+
+        private void backsun_Click(object sender, EventArgs e)
+        {
+            anphasunx -= 10;
+            dir.z += 1.0/ 9;
+            currentSun = new Sun(anphasuny, anphasunx, dir);
+            Action();
+        }
+
+        private void frontsun_Click(object sender, EventArgs e)
+        {
+            anphasunx += 10;
+            dir.z -= 1.0 / 9;
+            currentSun = new Sun(anphasuny, anphasunx, dir);
             Action();
         }
 
@@ -88,7 +150,7 @@ namespace Graphic
             }
             catch (Exception)
             {
-                MessageBox.Show("Input error", "Error");
+                MessageBox.Show("Неконкретный ввод", "Error");
                 return;
             }
             screen.CreateHouse(color, x, dx, z, dz, h, roof.Checked);
@@ -99,7 +161,7 @@ namespace Graphic
         {
             if(anglex == -30)
             {
-                MessageBox.Show("Min x", "Error");
+                MessageBox.Show("Максимальный поворот вниз", "Error");
                 return;
             }
             anglex -= 10;
@@ -110,7 +172,7 @@ namespace Graphic
         {
             if (anglex == 30)
             {
-                MessageBox.Show("Max x", "Error");
+                MessageBox.Show("Максимальный поворот вверх", "Error");
                 return;
             }
             anglex += 10;
@@ -121,7 +183,7 @@ namespace Graphic
         {
             if (angley == 40)
             {
-                MessageBox.Show("Max y", "Error");
+                MessageBox.Show("Максимальный поворот влево", "Error");
                 return;
             }
             angley += 10;
@@ -132,7 +194,7 @@ namespace Graphic
         {
             if (angley == -40)
             {
-                MessageBox.Show("Min y", "Error");
+                MessageBox.Show("Максимальный поворот вправо", "Error");
                 return;
             }
             angley -= 10;
@@ -141,19 +203,31 @@ namespace Graphic
 
         private void SetSun()
         {
-            sun1 = new Sun( -90, new Vector(1, 0, 0));
-            sun2 = new Sun(-110, new Vector(0.4, -0.5, 0));
-            sun3 = new Sun(180, new Vector(0, -1, 0));
-            sun4 = new Sun(110, new Vector(-0.4, -0.5, 0));
-            sun5 = new Sun(90, new Vector(-1, 0, 0));
-            currentSun = sun3;
+            currentSun = new Sun(anphasuny, anphasunx, dir);
+        }
+
+        private void Compare()
+        {
+            Screen newScreen = screen.GetChangeScreen(anglex, angley, anglez);
+            Stopwatch swObj = new Stopwatch();
+            zbuf = new ZBuffer(newScreen, currentSun, canvas.Size);
+            swObj.Start();
+            canvas.Image = zbuf.AddShadow();
+            swObj.Stop();
+            Console.WriteLine("Total:=" + swObj.ElapsedTicks);
+            swObj.Restart();
+            canvas.Image = zbuf.NewAddShadow();
+            swObj.Stop();
+            Console.WriteLine("Total:=" + swObj.ElapsedTicks);
         }
 
         private void Action()
         {
             Screen newScreen = screen.GetChangeScreen(anglex, angley, anglez);
             zbuf = new ZBuffer(newScreen, currentSun, canvas.Size);
+            
             canvas.Image = zbuf.AddShadow();
+            //Compare();
             if (!addedFog)
             {
                 return;
@@ -164,7 +238,7 @@ namespace Graphic
             }
             catch(Exception)
             {
-                MessageBox.Show("Error Input", "Error");
+                MessageBox.Show("Неконкретный ввод", "Error");
                 return;
             }
             canvas.Image = Fog.AddedFog(zbuf, zfar);

@@ -56,15 +56,21 @@
             this.dxInput = new System.Windows.Forms.TextBox();
             this.xCenterInput = new System.Windows.Forms.TextBox();
             this.fog = new System.Windows.Forms.GroupBox();
-            this.addFog = new System.Windows.Forms.Button();
-            this.chearFog = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.zfarInput = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chearFog = new System.Windows.Forms.Button();
+            this.addFog = new System.Windows.Forms.Button();
+            this.sunleft = new System.Windows.Forms.Button();
+            this.rightsun = new System.Windows.Forms.Button();
+            this.frontsun = new System.Windows.Forms.Button();
+            this.backsun = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.rotate.SuspendLayout();
             this.sun_place.SuspendLayout();
             this.addHouse.SuspendLayout();
             this.fog.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // canvas
@@ -127,7 +133,7 @@
             // 
             // sun_2
             // 
-            this.sun_2.Location = new System.Drawing.Point(143, 23);
+            this.sun_2.Location = new System.Drawing.Point(128, 23);
             this.sun_2.Name = "sun_2";
             this.sun_2.Size = new System.Drawing.Size(108, 32);
             this.sun_2.TabIndex = 6;
@@ -147,7 +153,7 @@
             // 
             // sun_4
             // 
-            this.sun_4.Location = new System.Drawing.Point(143, 78);
+            this.sun_4.Location = new System.Drawing.Point(128, 77);
             this.sun_4.Name = "sun_4";
             this.sun_4.Size = new System.Drawing.Size(105, 27);
             this.sun_4.TabIndex = 8;
@@ -172,7 +178,7 @@
             this.rotate.Controls.Add(this.Up);
             this.rotate.Controls.Add(this.button2);
             this.rotate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rotate.Location = new System.Drawing.Point(1277, 26);
+            this.rotate.Location = new System.Drawing.Point(1227, 12);
             this.rotate.Name = "rotate";
             this.rotate.Size = new System.Drawing.Size(254, 165);
             this.rotate.TabIndex = 10;
@@ -187,12 +193,12 @@
             this.sun_place.Controls.Add(this.sun_2);
             this.sun_place.Controls.Add(this.sun_1);
             this.sun_place.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sun_place.Location = new System.Drawing.Point(1277, 206);
+            this.sun_place.Location = new System.Drawing.Point(1227, 183);
             this.sun_place.Name = "sun_place";
-            this.sun_place.Size = new System.Drawing.Size(254, 169);
+            this.sun_place.Size = new System.Drawing.Size(240, 169);
             this.sun_place.TabIndex = 11;
             this.sun_place.TabStop = false;
-            this.sun_place.Text = "Положения сонлца";
+            this.sun_place.Text = "Положения солнца";
             // 
             // addHouse
             // 
@@ -211,7 +217,7 @@
             this.addHouse.Controls.Add(this.dxInput);
             this.addHouse.Controls.Add(this.xCenterInput);
             this.addHouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addHouse.Location = new System.Drawing.Point(1277, 381);
+            this.addHouse.Location = new System.Drawing.Point(1227, 369);
             this.addHouse.Name = "addHouse";
             this.addHouse.Size = new System.Drawing.Size(277, 231);
             this.addHouse.TabIndex = 12;
@@ -355,22 +361,29 @@
             this.fog.Controls.Add(this.chearFog);
             this.fog.Controls.Add(this.addFog);
             this.fog.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fog.Location = new System.Drawing.Point(1280, 639);
+            this.fog.Location = new System.Drawing.Point(1227, 617);
             this.fog.Name = "fog";
             this.fog.Size = new System.Drawing.Size(273, 173);
             this.fog.TabIndex = 13;
             this.fog.TabStop = false;
             this.fog.Text = "Туман";
             // 
-            // addFog
+            // zfarInput
             // 
-            this.addFog.Location = new System.Drawing.Point(128, 99);
-            this.addFog.Name = "addFog";
-            this.addFog.Size = new System.Drawing.Size(139, 28);
-            this.addFog.TabIndex = 0;
-            this.addFog.Text = "Добавить туман";
-            this.addFog.UseVisualStyleBackColor = true;
-            this.addFog.Click += new System.EventHandler(this.addFog_Click);
+            this.zfarInput.Location = new System.Drawing.Point(96, 58);
+            this.zfarInput.Name = "zfarInput";
+            this.zfarInput.Size = new System.Drawing.Size(80, 23);
+            this.zfarInput.TabIndex = 3;
+            this.zfarInput.Text = "-300";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 58);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 17);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Плотность";
             // 
             // chearFog
             // 
@@ -382,35 +395,83 @@
             this.chearFog.UseVisualStyleBackColor = true;
             this.chearFog.Click += new System.EventHandler(this.chearFog_Click);
             // 
-            // label7
+            // addFog
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 58);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(79, 17);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Дальность";
+            this.addFog.Location = new System.Drawing.Point(128, 99);
+            this.addFog.Name = "addFog";
+            this.addFog.Size = new System.Drawing.Size(139, 28);
+            this.addFog.TabIndex = 0;
+            this.addFog.Text = "Добавить туман";
+            this.addFog.UseVisualStyleBackColor = true;
+            this.addFog.Click += new System.EventHandler(this.addFog_Click);
             // 
-            // zfarInput
+            // sunleft
             // 
-            this.zfarInput.Location = new System.Drawing.Point(96, 58);
-            this.zfarInput.Name = "zfarInput";
-            this.zfarInput.Size = new System.Drawing.Size(80, 23);
-            this.zfarInput.TabIndex = 3;
-            this.zfarInput.Text = "-300";
+            this.sunleft.Location = new System.Drawing.Point(6, 77);
+            this.sunleft.Name = "sunleft";
+            this.sunleft.Size = new System.Drawing.Size(75, 26);
+            this.sunleft.TabIndex = 14;
+            this.sunleft.Text = "Влево";
+            this.sunleft.UseVisualStyleBackColor = true;
+            this.sunleft.Click += new System.EventHandler(this.sunleft_Click);
+            // 
+            // rightsun
+            // 
+            this.rightsun.Location = new System.Drawing.Point(93, 77);
+            this.rightsun.Name = "rightsun";
+            this.rightsun.Size = new System.Drawing.Size(75, 28);
+            this.rightsun.TabIndex = 15;
+            this.rightsun.Text = "Вправо";
+            this.rightsun.UseVisualStyleBackColor = true;
+            this.rightsun.Click += new System.EventHandler(this.rightsun_Click);
+            // 
+            // frontsun
+            // 
+            this.frontsun.Location = new System.Drawing.Point(52, 22);
+            this.frontsun.Name = "frontsun";
+            this.frontsun.Size = new System.Drawing.Size(75, 33);
+            this.frontsun.TabIndex = 16;
+            this.frontsun.Text = "Вперед";
+            this.frontsun.UseVisualStyleBackColor = true;
+            this.frontsun.Click += new System.EventHandler(this.frontsun_Click);
+            // 
+            // backsun
+            // 
+            this.backsun.Location = new System.Drawing.Point(52, 121);
+            this.backsun.Name = "backsun";
+            this.backsun.Size = new System.Drawing.Size(75, 31);
+            this.backsun.TabIndex = 17;
+            this.backsun.Text = "Позади";
+            this.backsun.UseVisualStyleBackColor = true;
+            this.backsun.Click += new System.EventHandler(this.backsun_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.backsun);
+            this.groupBox1.Controls.Add(this.frontsun);
+            this.groupBox1.Controls.Add(this.rightsun);
+            this.groupBox1.Controls.Add(this.sunleft);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(1473, 184);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(188, 168);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Сдвиг солнца";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1684, 861);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fog);
             this.Controls.Add(this.addHouse);
             this.Controls.Add(this.sun_place);
             this.Controls.Add(this.rotate);
             this.Controls.Add(this.canvas);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Graphic";
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
             this.rotate.ResumeLayout(false);
             this.sun_place.ResumeLayout(false);
@@ -418,6 +479,7 @@
             this.addHouse.PerformLayout();
             this.fog.ResumeLayout(false);
             this.fog.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -456,6 +518,11 @@
         private System.Windows.Forms.Button addFog;
         private System.Windows.Forms.TextBox zfarInput;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button sunleft;
+        private System.Windows.Forms.Button rightsun;
+        private System.Windows.Forms.Button frontsun;
+        private System.Windows.Forms.Button backsun;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

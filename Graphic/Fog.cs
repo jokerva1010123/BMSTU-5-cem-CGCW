@@ -13,19 +13,20 @@ namespace Graphic
         {
             Bitmap img = map.GetImg().Clone(new Rectangle(0, 0, map.GetImg().Width, map.GetImg().Height), System.Drawing.Imaging.PixelFormat.Format32bppRgb);
             Color fogColor = Color.Gray;
-            float rangeZ = 500 - zfar;
+            float rangeZ = 700 - zfar;
 
             for (int i = 0; i < img.Width; i++)
             {
                 for (int j = 0; j < img.Height; j++)
                 {
                     int z = map.GetZ(i, j);
-                    if (z <= zfar) // Дальше от нас; невидимо за туманом
+                    if (z <= zfar) 
                     {
-                        img.SetPixel(i, j, fogColor);
+                        img.SetPixel(i, j, fogColor);// Дальше от нас; невидимо за туманом
                     }
-                    else // Ближе к нам
+                    else 
                     {
+                        // Ближе к нам
                         float k = Math.Min((z - zfar) / rangeZ, 1);
                         Color currentColor = img.GetPixel(i, j);
                         float bPers = 1 - k;

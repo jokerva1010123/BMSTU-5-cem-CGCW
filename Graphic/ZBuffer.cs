@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Graphic
 {
@@ -25,7 +26,7 @@ namespace Graphic
         {
             tettax = this.sun.tettax;
             tettay = this.sun.tettay;
-            tettaz = this.sun.tettax;
+            tettaz = this.sun.tettaz;
         }
 
         void ProcessPoint(int[][] zbuff, Bitmap image, Point3D p, Color color, int w = 1200, int h = 800)
@@ -42,7 +43,7 @@ namespace Graphic
 
         void ProcessModel(int[][] zbuff, Bitmap image, Model m)
         {
-            Color draw = m.colorOfModel;
+            Color draw;
             foreach(Side s in m.sides)
             {
                 s.FindPointInSide(this.img.Width, this.img.Height);
@@ -62,7 +63,7 @@ namespace Graphic
                 if (side.ignoreFromSun)
                     continue;
                 side.FindPointInSide(this.img.Width, this.img.Height);
-                draw =side.GetColorFromSun(sun);
+                draw = side.GetColorFromSun(sun);
                 foreach(Point3D p in side.pointInSide)
                 {
                     ProcessPoint(zbuffFromSun, imageFromSun, p, draw);
@@ -89,7 +90,6 @@ namespace Graphic
                     zbufFromSun[i][j] = zBackground;    
                 }
             }
-
             foreach(Model m in screen.model)
             {
                 ProcessModel(zbuf, img, m);
@@ -124,7 +124,7 @@ namespace Graphic
                             continue;
                         }
 
-                        if (zbufFromSun[newPoint.y][newPoint.x] > newPoint.z + 5) // текущая точка невидима из источника света
+                        if (zbufFromSun[newPoint.y][newPoint.x] > newPoint.z+1) // текущая точка невидима из источника света
                         {
                             float bPers = 1 - 0.4f;
                             int red = (int)(Color.Black.R * 0.4f + currentColor.R * bPers);
@@ -140,6 +140,55 @@ namespace Graphic
                 }
             }
             return newImg;
+        }
+
+        public Bitmap NewAddShadow()
+        {
+            Color[][] result = new Color[size.Width][], imgage = new Color[size.Width][];
+            for (int i = 0; i < size.Width; ++i)
+            {
+                result[i] = new Color[size.Height];
+                imgage[i] = new Color[size.Height];
+                for (int j = 0; j < size.Height; ++j)
+                    imgage[i][j] = img.GetPixel(i, j);
+            }
+            
+            Parallel.For(0, size.Width, i =>
+            {
+                Color[] newColor = result[i];
+                for (int j = 0; j < size.Height; j++)
+                {
+                    int z = GetZ(i, j);
+                    if (z != zBackground)
+                    {
+                        Point3D newPoint = Transformation.Transform(i, j, z, tettax, tettay, tettaz);
+                        Color currentColor = imgage[i][j];
+                        if (newPoint.x < 0 || newPoint.y < 0 || newPoint.x >= size.Width || newPoint.y >= size.Height)
+                        {
+                            newColor[j] = currentColor; //тени не считаются, чтобы увидеть эти места -> убрать эту строку;
+                            continue;
+                        }
+
+                        if (zbufFromSun[newPoint.y][newPoint.x] > newPoint.z + 5) // текущая точка невидима из источника света
+                        {
+                            float bPers = 1 - 0.4f;
+                            int red = (int)(Color.Black.R * 0.4f + currentColor.R * bPers);
+                            int green = (int)(Color.Black.G * 0.4f + currentColor.G * bPers);
+                            int blue = (int)(Color.Black.B * 0.4f + currentColor.B * bPers);
+                            newColor[j] = Color.FromArgb(red, green, blue);
+                        }
+                        else
+                        {
+                            newColor[j] = currentColor;
+                        }
+                    }
+                }
+            });
+            Bitmap newimg = new Bitmap(size.Width, size.Height);
+            for (int i = 0; i < size.Width; ++i)
+                for (int j = 0; j < size.Height; j++)
+                    newimg.SetPixel(i, j, result[i][j]);
+            return newimg;
         }
     }
 }
